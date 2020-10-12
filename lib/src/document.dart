@@ -123,13 +123,14 @@ class PDFDocument {
 
   // Stream all pages
   Stream<List<PDFPage>> getAll({final Function(double) onZoomChanged}) async* {
-    final List<int> pageNumberList = List.generate(count, (index) => count + 1);
+    final List<int> pageNumberList = List.generate(count, (index) => index + 1);
     final List<PDFPage> result = List();
     for (int n in pageNumberList) {
+      print("getAll $n");
       final data = await _channel.invokeMethod('getPage', {'filePath': _filePath, 'pageNumber': n});
       result.add(PDFPage(
         data,
-        n,
+        1,
         onZoomChanged: onZoomChanged,
       ));
       yield result;
