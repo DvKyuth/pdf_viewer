@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:advance_pdf_viewer/advance_pdf_viewer.dart';
+import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
@@ -20,17 +20,20 @@ class _MyAppState extends State<MyApp> {
 
   loadDocument() async {
     document = await PDFDocument.fromAsset('assets/sample.pdf');
-
     setState(() => _isLoading = false);
+    document.getAll().listen((event) {
+      event?.forEach((element) {
+        print("Length ${event?.length ?? 0} ${element.imgPath}");
+      });
+    });
   }
 
   changePDF(value) async {
     setState(() => _isLoading = true);
     if (value == 1) {
-      document = await PDFDocument.fromAsset('assets/sample2.pdf');
+      document = await PDFDocument.fromURL("https://banalai.codexcambodia.com/pdf/5_Half_Level_Leaders.pdf");
     } else if (value == 2) {
-      document = await PDFDocument.fromURL(
-          "http://conorlastowka.com/book/CitationNeededBook-Sample.pdf");
+      document = await PDFDocument.fromURL("http://conorlastowka.com/book/CitationNeededBook-Sample.pdf");
     } else {
       document = await PDFDocument.fromAsset('assets/sample.pdf');
     }
