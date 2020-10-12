@@ -129,7 +129,7 @@ class PDFDocument {
       final data = await _channel.invokeMethod('getPage', {'filePath': _filePath, 'pageNumber': n});
       result.add(PDFPage(
         data,
-        1,
+        n,
         onZoomChanged: onZoomChanged,
       ));
       yield result;
